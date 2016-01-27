@@ -16,6 +16,7 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
     @IBOutlet weak var tableView: UITableView!
     
     var movies: [NSDictionary]?
+    var videos: [NSDictionary]?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,6 +28,13 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
         
         tableView.dataSource = self
         tableView.delegate = self
+        
+        let videoStart = "http://api.themoviedb.org/3/movie/"
+        let vidId = "550"
+        let endStart = "/videos?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed"
+        let video = videoStart + vidId + endStart
+        
+        print("HEY THERE" + video)
         
         let apiKey = "a07e22bc18f5cb106bfe4cc1f83ad8ed"
         let url = NSURL(string: "https://api.themoviedb.org/3/movie/now_playing?api_key=\(apiKey)")
@@ -64,6 +72,7 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
                 }
         })
         task.resume()
+        // http://api.themoviedb.org/3/movie/550/videos?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed
 
 
         // Do any additional setup after loading the view.
