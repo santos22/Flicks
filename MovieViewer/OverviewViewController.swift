@@ -7,14 +7,22 @@
 //
 
 import UIKit
+import XCDYouTubeKit
 
 class OverviewViewController: UIViewController {
 
     @IBOutlet weak var overviewLabel: UILabel!
+    
+    @IBOutlet weak var videoPlayer: UIView!
     var overview: String?
+    
+    var videoPlayerViewController: XCDYouTubeVideoPlayerViewController = XCDYouTubeVideoPlayerViewController(videoIdentifier: "9bZkp7q19f0")
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        videoPlayerViewController.presentInView(self.videoPlayer)
+        videoPlayerViewController.moviePlayer.play()
         
         if let overview = self.overview {
             overviewLabel.text = overview

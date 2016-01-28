@@ -85,12 +85,18 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <view contentMode="scaleToFill" id="vJs-Wx-Cl1">
+                                <rect key="frame" x="40" y="139" width="240" height="128"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="GSu-ER-R4v"/>
                     <connections>
                         <outlet property="overviewLabel" destination="sle-fu-v77" id="UMF-nl-z35"/>
+                        <outlet property="videoPlayer" destination="vJs-Wx-Cl1" id="r7J-lE-mK0"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ei2-SD-XRC" userLabel="First Responder" sceneMemberID="firstResponder"/>
