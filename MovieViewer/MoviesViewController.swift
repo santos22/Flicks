@@ -21,6 +21,8 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setTitle()
+        
         // Initialize a UIRefreshControl
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: "refreshControlAction:", forControlEvents: UIControlEvents.ValueChanged)
@@ -76,6 +78,11 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
 
 
         // Do any additional setup after loading the view.
+    }
+    
+    // sets title of app
+    func setTitle() {
+        self.title = "Flicks"
     }
 
     override func didReceiveMemoryWarning() {
