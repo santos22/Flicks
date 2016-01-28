@@ -7,6 +7,7 @@ inhibit_all_warnings!
 target 'MovieViewer' do
     pod 'AFNetworking'
     pod 'MBProgressHUD'
+    pod 'XCDYouTubeKit'
 
 end
 
