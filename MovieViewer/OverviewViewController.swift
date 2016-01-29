@@ -37,9 +37,9 @@ class OverviewViewController: UIViewController {
         }
         
         if let trailerId = self.trailerId {
-            videoTrailer = trailerId
+            //videoTrailer = trailerId
             print("HI THERE VIDEO TRAILER")
-            let videoPlayerViewController: XCDYouTubeVideoPlayerViewController = XCDYouTubeVideoPlayerViewController(videoIdentifier: videoTrailer)
+            let videoPlayerViewController: XCDYouTubeVideoPlayerViewController = XCDYouTubeVideoPlayerViewController(videoIdentifier: trailerId)
             videoPlayerViewController.presentInView(self.videoPlayer)
             videoPlayerViewController.moviePlayer.play()
         }
