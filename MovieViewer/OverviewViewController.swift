@@ -12,20 +12,36 @@ import XCDYouTubeKit
 class OverviewViewController: UIViewController {
 
     @IBOutlet weak var overviewLabel: UILabel!
+    @IBOutlet weak var backdropImage: UIImageView!
     
     @IBOutlet weak var videoPlayer: UIView!
     var overview: String?
+    var backdrop: NSURL?
+    var trailerId: String?
     
-    var videoPlayerViewController: XCDYouTubeVideoPlayerViewController = XCDYouTubeVideoPlayerViewController(videoIdentifier: "9bZkp7q19f0")
+    var videoTrailer: String?
+    // "9bZkp7q19f0"
+    
+    //var videoPlayerViewController: XCDYouTubeVideoPlayerViewController = XCDYouTubeVideoPlayerViewController(videoIdentifier: "9bZkp7q19f0")
+    //var videoPlayerViewController: XCDYouTubeVideoPlayerViewController
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        videoPlayerViewController.presentInView(self.videoPlayer)
-        videoPlayerViewController.moviePlayer.play()
-        
         if let overview = self.overview {
             overviewLabel.text = overview
+        }
+        
+        if let backdrop = self.backdrop {
+            backdropImage.setImageWithURL(backdrop)
+        }
+        
+        if let trailerId = self.trailerId {
+            videoTrailer = trailerId
+            print("HI THERE VIDEO TRAILER")
+            let videoPlayerViewController: XCDYouTubeVideoPlayerViewController = XCDYouTubeVideoPlayerViewController(videoIdentifier: videoTrailer)
+            videoPlayerViewController.presentInView(self.videoPlayer)
+            videoPlayerViewController.moviePlayer.play()
         }
     }
 
