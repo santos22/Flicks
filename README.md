@@ -25,7 +25,7 @@ The following **additional** features are implemented:
 
 - [X] Users can see the average score of each film.
 - [X] Users can find an overview of each film in the next page.
-- [X] Users will be able to view the corresponding trailer for each film...
+- [ ] Users will be able to view the corresponding trailer for each film...
 
 Please list two areas of the assignment you'd like to **discuss further with your peers** during the next class (examples include better ways to implement something, how to extend your app in certain ways, etc):
 
