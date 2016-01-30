@@ -62,77 +62,17 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
                 if let data = dataOrNil {
                     if let responseDictionary = try! NSJSONSerialization.JSONObjectWithData(
                         data, options:[]) as? NSDictionary {
-                            print("response: \(responseDictionary)")
+                            //print("response: \(responseDictionary)")
                             
                             // have to reload data after the network request has been made
                             self.movies = responseDictionary["results"] as! [NSDictionary]
                             let videoResponse = self.movies![0] // unwraps
-                            print("ID YO" + String(videoResponse["id"]))
+                            //print("ID YO" + String(videoResponse["id"]))
                             self.tableView.reloadData()
                     }
                 }
         })
         task.resume()
-        
-        let videoStart = "http://api.themoviedb.org/3/movie/"
-        let vidId = "500"
-        let endStart = "/videos?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed"
-        //let video = videoStart + vidId + endStart
-        
-        //let videoUrl = NSURL(string: video)
-        let videoUrl = NSURL(string: "http://api.themoviedb.org/3/movie/550/videos?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed")
-        
-        let videoRequest = NSURLRequest(
-            URL: videoUrl!,
-            cachePolicy: NSURLRequestCachePolicy.ReloadIgnoringLocalCacheData,
-            timeoutInterval: 10)
-
-        
-        let videoTask: NSURLSessionDataTask = session.dataTaskWithRequest(videoRequest,
-            completionHandler: { (dataOrNil, response, error) in
-                
-                // Hide HUD once the network request comes back (must be done on main UI thread)
-                MBProgressHUD.hideHUDForView(self.view, animated: true)
-                if let data = dataOrNil {
-                    if let responseDictionary = try! NSJSONSerialization.JSONObjectWithData(
-                        data, options:[]) as? NSDictionary {
-                            //print("response: \(responseDictionary)")
-                            
-                            // have to reload data after the network request has been made
-                            self.videos = responseDictionary["results"] as! [NSDictionary]
-                            let videoResponse = self.videos![0] // unwraps
-                            self.trailer = videoResponse["key"] as! String
-                            print("ID YO" + String(videoResponse["id"]))
-                            
-                            self.tableView.reloadData()
-                    }
-                }
-        })
-        videoTask.resume()
-        
-//        let videoTask: NSURLSessionDataTask = session.dataTaskWithRequest(videoRequest,
-//            completionHandler: { (dataOrNil, response, error) in
-//
-//                // Hide HUD once the network request comes back (must be done on main UI thread)
-//                MBProgressHUD.hideHUDForView(self.view, animated: true)
-//                if let data = dataOrNil {
-//                    if let responseDictionary = try! NSJSONSerialization.JSONObjectWithData(
-//                        data, options:[]) as? NSDictionary {
-//                            //print("response: \(responseDictionary)")
-//                            
-//                            // have to reload data after the network request has been made
-//                            self.videos = responseDictionary["results"] as! [NSDictionary]
-//                            let videoResponse = self.videos![0] // unwraps
-//                            self.trailer = videoResponse["key"] as! String
-//                            if let printId = self.printId{
-//                                print("CODEPATH IS LIFE" + printId)
-//                            }
-//                            self.tableView.reloadData()
-//                    }
-//                }
-//        })
-//        videoTask.resume()
-        // http://api.themoviedb.org/3/movie/550/videos?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed
 
 
         // Do any additional setup after loading the view.
@@ -164,7 +104,7 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
         
         let movie = movies![indexPath.row] // unwraps
         let title = movie["title"] as! String // want it to be a string
-        let overview = movie["overview"] as! String
+        let movieId = String(movie["vote_average"] as! NSNumber)
         
         let baseUrl = "http://image.tmdb.org/t/p/w500"
         
@@ -175,17 +115,12 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
         } else {
             //cell.posterView.setImageWithURL()
         }
-        //let posterPath = movie["poster_path"] as! String
-        //let imageUrl = NSURL(string: baseUrl + posterPath)
-        
-        let testId = movie["id"] as! NSNumber
         
         
         cell.titleLabel.text = title
-        cell.overviewLabel.text = overview
-        //cell.posterView.setImageWithURL(imageUrl!)
+        cell.overviewLabel.text = movieId
         
-        print("row\(indexPath.row)")
+        //print("row\(indexPath.row)")
         return cell
     }
     
@@ -229,6 +164,8 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
+        
+        
         if segue.identifier == "showOverviewSegue" {
             let cell = sender as! UITableViewCell
             if let indexPath = tableView.indexPathForCell(cell) {
@@ -248,57 +185,13 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
                     nameController.backdrop = nil
                 }
 
-                //let backdropPath = movie["backdrop_path"] as! String
-                //let backdropUrl = NSURL(string: baseUrl + backdropPath)
                 let overview = movie["overview"] as! String
                 let movieId = movie["id"] as! NSNumber
                 printId = String(movieId)
                 
-                //print("MOVIE ID IS HERE" + printId!)
-                
-//                let videoStart = "http://api.themoviedb.org/3/movie/"
-//                let vidId = printId
-//                let endStart = "/videos?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed"
-//                let video = videoStart + vidId! + endStart
-//                
-//                let videoUrl = NSURL(string: video)
-//                
-//                let videoRequest = NSURLRequest(
-//                    URL: videoUrl!,
-//                    cachePolicy: NSURLRequestCachePolicy.ReloadIgnoringLocalCacheData,
-//                    timeoutInterval: 10)
-//                
-//                let session = NSURLSession(
-//                    configuration: NSURLSessionConfiguration.defaultSessionConfiguration(),
-//                    delegate: nil,
-//                    delegateQueue: NSOperationQueue.mainQueue()
-//                )
-//                
-//                let videoTask: NSURLSessionDataTask = session.dataTaskWithRequest(videoRequest,
-//                    completionHandler: { (dataOrNil, response, error) in
-//                        
-//                        // Hide HUD once the network request comes back (must be done on main UI thread)
-//                        MBProgressHUD.hideHUDForView(self.view, animated: true)
-//                        if let data = dataOrNil {
-//                            if let responseDictionary = try! NSJSONSerialization.JSONObjectWithData(
-//                                data, options:[]) as? NSDictionary {
-//                                    //print("response: \(responseDictionary)")
-//                                    
-//                                    // have to reload data after the network request has been made
-//                                    self.videos = responseDictionary["results"] as! [NSDictionary]
-//                                    let videoResponse = self.videos![0] // unwraps
-//                                    self.trailer = videoResponse["key"] as! String
-//
-//                                    self.tableView.reloadData()
-//                            }
-//                        }
-//                })
-//                videoTask.resume()
-                
                 
                 nameController.overview = overview
-                //nameController.backdrop = backdropUrl
-                nameController.trailerId = trailer
+                nameController.trailerId = printId
                 tableView.deselectRowAtIndexPath(indexPath, animated: true)
             }
         }
