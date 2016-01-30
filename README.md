@@ -23,7 +23,6 @@ The following **optional** features are implemented:
 
 The following **additional** features are implemented:
 
-- [ ] List anything else that you can get done to improve the app functionality!
 - [X] Users can see the average score of each film.
 - [X] Users can find an overview of each film in the next page.
 - [X] Users will be able to view the corresponding trailer for each film...
