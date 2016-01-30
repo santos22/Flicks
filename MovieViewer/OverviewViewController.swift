@@ -88,9 +88,9 @@ class OverviewViewController: UIViewController {
                             print("response: \(responseDictionary)")
                             
                             // have to reload data after the network request has been made
-                            self.videos = responseDictionary["results"] as! [NSDictionary]
+                            self.videos = responseDictionary["results"] as? [NSDictionary]!
                             
-                            //self.testTrailer = responseDictionary["results"]!["key"] as! String!
+                            self.testTrailer = responseDictionary[0]!["key"] as? String
                             //print("LOOK CHECK ME OUT " + self.testTrailer!)
                             //let videoResponse = self.videos![0] // unwraps
                             //self.testTrailer = videoResponse["key"] as! String
@@ -101,9 +101,7 @@ class OverviewViewController: UIViewController {
         })
         videoTask.resume()
         
-//        let videoArray = videos![0] // unwraps
-//        let keyId = videoArray["key"] as! String
-//        print(videos!.count)
+        print(testTrailer)
     }
 
     override func didReceiveMemoryWarning() {
