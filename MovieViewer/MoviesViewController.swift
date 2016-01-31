@@ -216,6 +216,7 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
             if let indexPath = tableView.indexPathForCell(cell) {
                 let nameController = segue.destinationViewController as! OverviewViewController
                 let movie = movies![indexPath.row] // unwraps
+                
                 let trailer = movie["id"] as! NSNumber
                 print("Check out this trailer" + String(trailer))
                 
@@ -231,7 +232,8 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
                     // that you include as an asset
                     nameController.backdrop = nil
                 }
-
+                
+                // change to if let
                 let overview = movie["overview"] as! String
                 let movieId = movie["id"] as! NSNumber
                 printId = String(movieId)

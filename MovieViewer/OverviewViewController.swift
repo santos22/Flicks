@@ -13,15 +13,12 @@ class OverviewViewController: UIViewController {
 
     //@IBOutlet weak var overviewLabel: UILabel!
     @IBOutlet weak var backdropImage: UIImageView!
-    
     @IBOutlet weak var movieOverview: UITextView!
     @IBOutlet weak var videoPlayer: UIView!
-    
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var overviewLabel: UILabel!
     
     var movieTrailer: NSDictionary! // implicitly unwrapped
-    
     var overview: String?
     var backdrop: NSURL?
     var trailerId: String?
@@ -36,7 +33,6 @@ class OverviewViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         
         if let overview = self.overview {
             movieOverview.text = overview
