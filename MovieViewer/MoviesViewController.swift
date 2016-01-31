@@ -81,6 +81,53 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
         })
         task.resume()
     }
+    
+//    func getTrailer(id: String) {
+//        let session = NSURLSession(
+//            configuration: NSURLSessionConfiguration.defaultSessionConfiguration(),
+//            delegate: nil,
+//            delegateQueue: NSOperationQueue.mainQueue()
+//        )
+//        
+//        let videoStart = "http://api.themoviedb.org/3/movie/"
+//        let vidId = trailerId
+//        let endStart = "/videos?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed"
+//        let video = videoStart + vidId! + endStart
+//        
+//        let videoUrl = NSURL(string: video)
+//        
+//        //let videoUrl = NSURL(string: "http://api.themoviedb.org/3/movie/265312/videos?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed")
+//        
+//        let videoRequest = NSURLRequest(
+//            URL: videoUrl!,
+//            cachePolicy: NSURLRequestCachePolicy.ReloadIgnoringLocalCacheData,
+//            timeoutInterval: 10)
+//        
+//        
+//        let videoTask: NSURLSessionDataTask = session.dataTaskWithRequest(videoRequest,
+//            completionHandler: { (dataOrNil, response, error) in
+//                
+//                if let data = dataOrNil {
+//                    if let responseDictionary = try! NSJSONSerialization.JSONObjectWithData(
+//                        data, options:[]) as? NSDictionary {
+//                            print("response: \(responseDictionary)")
+//                            
+//                            // have to reload data after the network request has been made
+//                            self.videos = responseDictionary["results"] as? [NSDictionary]
+//                            
+//                            
+//                            //self.testTrailer = responseDictionary[0]!["key"] as? String
+//                            //print("LOOK CHECK ME OUT " + self.testTrailer!)
+//                            //let videoResponse = self.videos![0] // unwraps
+//                            //self.testTrailer = videoResponse["key"] as! String
+//                            //print("Jennifer" + self.trailerId!)
+//                            
+//                    }
+//                }
+//                
+//        })
+//        videoTask.resume()
+//    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -115,6 +162,11 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
         
         if let movieId = String(movie["vote_average"] as! NSNumber) as? String {
             cell.overviewLabel.text = movieId
+        }
+        
+        if let posterPath = movie["id"] as? String {
+            let imageUrl = NSURL(string: baseUrl + posterPath)
+            cell.posterView.setImageWithURL(imageUrl!)
         }
         return cell
     }
@@ -164,6 +216,9 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
             if let indexPath = tableView.indexPathForCell(cell) {
                 let nameController = segue.destinationViewController as! OverviewViewController
                 let movie = movies![indexPath.row] // unwraps
+                let trailer = movie["id"] as! NSNumber
+                print("Check out this trailer" + String(trailer))
+                
                 let baseUrl = "http://image.tmdb.org/t/p/w500"
                 
                 if let backdropPath = movie["backdrop_path"] as? String {
