@@ -17,6 +17,11 @@ class OverviewViewController: UIViewController {
     @IBOutlet weak var movieOverview: UITextView!
     @IBOutlet weak var videoPlayer: UIView!
     
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var overviewLabel: UILabel!
+    
+    var movieTrailer: NSDictionary! // implicitly unwrapped
+    
     var overview: String?
     var backdrop: NSURL?
     var trailerId: String?
@@ -36,7 +41,11 @@ class OverviewViewController: UIViewController {
         if let overview = self.overview {
             movieOverview.text = overview
         }
+
         
+        if let overview = self.overview {
+            overviewLabel.text = overview
+        }
 //        if let overview = self.overview {
 //            overviewLabel.text = overview
 //        }
@@ -88,9 +97,10 @@ class OverviewViewController: UIViewController {
                             print("response: \(responseDictionary)")
                             
                             // have to reload data after the network request has been made
-                            self.videos = responseDictionary["results"] as? [NSDictionary]!
+                            self.videos = responseDictionary["results"] as? [NSDictionary]
                             
-                            self.testTrailer = responseDictionary[0]!["key"] as? String
+                            
+                            //self.testTrailer = responseDictionary[0]!["key"] as? String
                             //print("LOOK CHECK ME OUT " + self.testTrailer!)
                             //let videoResponse = self.videos![0] // unwraps
                             //self.testTrailer = videoResponse["key"] as! String
@@ -98,26 +108,15 @@ class OverviewViewController: UIViewController {
                             
                     }
                 }
+                
         })
         videoTask.resume()
         
-        print(testTrailer)
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
