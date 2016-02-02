@@ -218,7 +218,7 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
                 let movie = movies![indexPath.row] // unwraps
                 
                 let trailer = movie["id"] as! NSNumber
-                print("Check out this trailer" + String(trailer))
+                //print("Check out this trailer" + String(trailer))
                 
                 let baseUrl = "http://image.tmdb.org/t/p/w500"
                 

@@ -26,7 +26,6 @@ class OverviewViewController: UIViewController {
     var testTrailer: String?
     
     var videoTrailer: String?
-    // "9bZkp7q19f0"
     
     //var videoPlayerViewController: XCDYouTubeVideoPlayerViewController = XCDYouTubeVideoPlayerViewController(videoIdentifier: "9bZkp7q19f0")
     //var videoPlayerViewController: XCDYouTubeVideoPlayerViewController
@@ -51,12 +50,6 @@ class OverviewViewController: UIViewController {
 //        }
         
         if let trailerId = self.trailerId {
-            print("Testing" + trailerId)
-            
-            let videoPlayerViewController: XCDYouTubeVideoPlayerViewController = XCDYouTubeVideoPlayerViewController(videoIdentifier: "9bZkp7q19f0")
-            videoPlayerViewController.presentInView(self.videoPlayer)
-            videoPlayerViewController.moviePlayer.play()
-            
             let session = NSURLSession(
                 configuration: NSURLSessionConfiguration.defaultSessionConfiguration(),
                 delegate: nil,
@@ -67,18 +60,13 @@ class OverviewViewController: UIViewController {
             let vidId = trailerId
             let endStart = "/videos?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed"
             let videoFinalUrl = videoStart + vidId + endStart
-            print("Now playing: " + videoFinalUrl)
             
             let videoUrl = NSURL(string: videoFinalUrl)
-            
-            //let videoUrl = NSURL(string: "http://api.themoviedb.org/3/movie/265312/videos?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed")
             
             let videoRequest = NSURLRequest(
                 URL: videoUrl!,
                 cachePolicy: NSURLRequestCachePolicy.ReloadIgnoringLocalCacheData,
                 timeoutInterval: 10)
-            
-            var videos: [NSDictionary]?
             
             let videoTask: NSURLSessionDataTask = session.dataTaskWithRequest(videoRequest,
                 completionHandler: { (dataOrNil, response, error) in
@@ -86,28 +74,27 @@ class OverviewViewController: UIViewController {
                     if let data = dataOrNil {
                         if let responseDictionary = try! NSJSONSerialization.JSONObjectWithData(
                             data, options:[]) as? NSDictionary {
-                                print("response: \(responseDictionary)")
+                                //print("response: \(responseDictionary)")
                                 
-                                // have to reload data after the network request has been made
-                                videos = responseDictionary["results"] as? [NSDictionary]
-                                
-                                //self.testTrailer = responseDictionary[0]!["key"] as? String
-                                //print("LOOK CHECK ME OUT " + self.testTrailer!)
-                                //let videoResponse = self.videos![0] // unwraps
-                                //self.testTrailer = videoResponse["key"] as! String
-                                //print("Jennifer" + self.trailerId!)
+                                if let testTrailer = responseDictionary["results"]![0]["key"]! as? String {
+                                    self.testTrailer = responseDictionary["results"]![0]["key"]! as! String
+                                    print("Yes " + self.testTrailer! as String!)
+                                    let videoPlayerViewController: XCDYouTubeVideoPlayerViewController = XCDYouTubeVideoPlayerViewController(videoIdentifier: self.testTrailer as String!)
+                                    videoPlayerViewController.presentInView(self.videoPlayer)
+                                    videoPlayerViewController.moviePlayer.play()
+                                } else {
+                                    self.testTrailer = "dQw4w9WgXcQ" // rick rolled
+                                    let videoPlayerViewController: XCDYouTubeVideoPlayerViewController = XCDYouTubeVideoPlayerViewController(videoIdentifier: self.testTrailer as String!)
+                                    videoPlayerViewController.presentInView(self.videoPlayer)
+                                    videoPlayerViewController.moviePlayer.play()
+                                }
                                 
                         }
                     }
                     
             })
             videoTask.resume()
-            
-//            let video = videos![0] // unwraps
-//            let trailer = video["id"] as! NSNumber
-//            print("Check out this trailer" + String(trailer))
         }
-        //let videoUrl = NSURL(string: "http://api.themoviedb.org/3/movie/265312/videos?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed")
     }
 
     override func didReceiveMemoryWarning() {
