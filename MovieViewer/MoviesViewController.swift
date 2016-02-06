@@ -183,13 +183,15 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
                     nameController.backdrop = nil
                 }
                 
-                // change to if let
-                let overview = movie["overview"] as! String
-                let movieId = movie["id"] as! NSNumber
-                printId = String(movieId)
+                // overview and id info passed over to next controller
+                if let overview = movie["overview"] as? String {
+                    nameController.overview = overview
+                }
                 
-                nameController.overview = overview
-                nameController.trailerId = printId
+                if let movieId = movie["id"] as? NSNumber {
+                    printId = String(movieId)
+                    nameController.trailerId = printId
+                }
                 tableView.deselectRowAtIndexPath(indexPath, animated: true)
             }
         }
