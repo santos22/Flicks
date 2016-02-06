@@ -13,7 +13,6 @@ import XCDYouTubeKit
 
 class MoviesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
-
     @IBOutlet weak var tableView: UITableView!
     
     var movies: [NSDictionary]?
@@ -33,11 +32,9 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
         tableView.dataSource = self
         tableView.delegate = self
         
-        // load movie data
         loadMovieData()
     }
     
-    // sets title of app
     func setTitle() {
         self.title = "Flicks"
     }
@@ -60,9 +57,7 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
         // Display HUD right before the request is made
         MBProgressHUD.showHUDAddedTo(self.view, animated: true)
         
-        // NSJSONSerialization is a method to parse JSON
-        // into NSDictionary and load it into response
-        // dictionary
+        // parse JSON into NSDictionary and load
         let task: NSURLSessionDataTask = session.dataTaskWithRequest(request,
             completionHandler: { (dataOrNil, response, error) in
                 
@@ -81,53 +76,6 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
         })
         task.resume()
     }
-    
-//    func getTrailer(id: String) {
-//        let session = NSURLSession(
-//            configuration: NSURLSessionConfiguration.defaultSessionConfiguration(),
-//            delegate: nil,
-//            delegateQueue: NSOperationQueue.mainQueue()
-//        )
-//        
-//        let videoStart = "http://api.themoviedb.org/3/movie/"
-//        let vidId = trailerId
-//        let endStart = "/videos?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed"
-//        let video = videoStart + vidId! + endStart
-//        
-//        let videoUrl = NSURL(string: video)
-//        
-//        //let videoUrl = NSURL(string: "http://api.themoviedb.org/3/movie/265312/videos?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed")
-//        
-//        let videoRequest = NSURLRequest(
-//            URL: videoUrl!,
-//            cachePolicy: NSURLRequestCachePolicy.ReloadIgnoringLocalCacheData,
-//            timeoutInterval: 10)
-//        
-//        
-//        let videoTask: NSURLSessionDataTask = session.dataTaskWithRequest(videoRequest,
-//            completionHandler: { (dataOrNil, response, error) in
-//                
-//                if let data = dataOrNil {
-//                    if let responseDictionary = try! NSJSONSerialization.JSONObjectWithData(
-//                        data, options:[]) as? NSDictionary {
-//                            print("response: \(responseDictionary)")
-//                            
-//                            // have to reload data after the network request has been made
-//                            self.videos = responseDictionary["results"] as? [NSDictionary]
-//                            
-//                            
-//                            //self.testTrailer = responseDictionary[0]!["key"] as? String
-//                            //print("LOOK CHECK ME OUT " + self.testTrailer!)
-//                            //let videoResponse = self.videos![0] // unwraps
-//                            //self.testTrailer = videoResponse["key"] as! String
-//                            //print("Jennifer" + self.trailerId!)
-//                            
-//                    }
-//                }
-//                
-//        })
-//        videoTask.resume()
-//    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -135,9 +83,6 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
-        // if movies is not nil, go ahead and assign that to a
-        // constant
         if let movies = movies {
             return movies.count
         } else {
@@ -171,9 +116,7 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
         return cell
     }
     
-    // Makes a network request to get updated data
-    // Updates the tableView with the new data
-    // Hides the RefreshControl
+    // make a network request to refresh data and update table view
     func refreshControlAction(refreshControl: UIRefreshControl) {
         
         let apiKey = "a07e22bc18f5cb106bfe4cc1f83ad8ed"
@@ -193,24 +136,14 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
         let task : NSURLSessionDataTask = session.dataTaskWithRequest(request,
             completionHandler: { (data, response, error) in
                 
-                // ... Use the new data to update the data source ...
-                
-                // Reload the tableView now that there is new data
                 self.tableView.reloadData()
-                
-                // Tell the refreshControl to stop spinning
                 refreshControl.endRefreshing()	
         });
         task.resume()
     }
-    
-
-    // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
         if segue.identifier == "showOverviewSegue" {
             let cell = sender as! UITableViewCell
             if let indexPath = tableView.indexPathForCell(cell) {
@@ -218,7 +151,14 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
                 let movie = movies![indexPath.row] // unwraps
                 
                 let trailer = movie["id"] as! NSNumber
-                //print("Check out this trailer" + String(trailer))
+                let releaseDate = movie["release_date"]
+                print(releaseDate as! String)
+                
+                let dateFormatter = NSDateFormatter()
+                dateFormatter.dateFormat = "yyyy-MM-dd"
+                let orignalDate: NSDate = dateFormatter.dateFromString(releaseDate as! String!)!
+                dateFormatter.dateFormat = "MMMM dd, yyyy"
+                print(dateFormatter.stringFromDate(orignalDate))
                 
                 let baseUrl = "http://image.tmdb.org/t/p/w500"
                 
@@ -228,8 +168,7 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
                     
                 }
                 else {
-                    // No poster image. Can either set to nil (no image) or a default movie poster image
-                    // that you include as an asset
+                    // no poster image, so set to nil (no image)
                     nameController.backdrop = nil
                 }
                 

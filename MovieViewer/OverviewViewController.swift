@@ -22,13 +22,9 @@ class OverviewViewController: UIViewController {
     var overview: String?
     var backdrop: NSURL?
     var trailerId: String?
-    //var videos: [NSDictionary]?
     var testTrailer: String?
     
     var videoTrailer: String?
-    
-    //var videoPlayerViewController: XCDYouTubeVideoPlayerViewController = XCDYouTubeVideoPlayerViewController(videoIdentifier: "9bZkp7q19f0")
-    //var videoPlayerViewController: XCDYouTubeVideoPlayerViewController
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,15 +36,9 @@ class OverviewViewController: UIViewController {
         if let backdrop = self.backdrop {
             backdropImage.setImageWithURL(backdrop)
         }
-        
-//        if let trailerId = self.trailerId {
-//            //videoTrailer = trailerId
-//            print("HI THERE VIDEO TRAILER" + trailerId)
-//            let videoPlayerViewController: XCDYouTubeVideoPlayerViewController = XCDYouTubeVideoPlayerViewController(videoIdentifier: trailerId)
-//            videoPlayerViewController.presentInView(self.videoPlayer)
-//            videoPlayerViewController.moviePlayer.play()
-//        }
-        
+    }
+
+    @IBAction func playMovieTrailer(sender: AnyObject) {
         if let trailerId = self.trailerId {
             let session = NSURLSession(
                 configuration: NSURLSessionConfiguration.defaultSessionConfiguration(),
@@ -78,15 +68,10 @@ class OverviewViewController: UIViewController {
                                 
                                 if let testTrailer = responseDictionary["results"]![0]["key"]! as? String {
                                     self.testTrailer = responseDictionary["results"]![0]["key"]! as! String
-                                    print("Yes " + self.testTrailer! as String!)
-                                    let videoPlayerViewController: XCDYouTubeVideoPlayerViewController = XCDYouTubeVideoPlayerViewController(videoIdentifier: self.testTrailer as String!)
-                                    videoPlayerViewController.presentInView(self.videoPlayer)
-                                    videoPlayerViewController.moviePlayer.play()
+                                    self.playVideo(self.testTrailer as String!)
                                 } else {
                                     self.testTrailer = "dQw4w9WgXcQ" // rick rolled
-                                    let videoPlayerViewController: XCDYouTubeVideoPlayerViewController = XCDYouTubeVideoPlayerViewController(videoIdentifier: self.testTrailer as String!)
-                                    videoPlayerViewController.presentInView(self.videoPlayer)
-                                    videoPlayerViewController.moviePlayer.play()
+                                    self.playVideo(self.testTrailer as String!)
                                 }
                                 
                         }
@@ -96,7 +81,16 @@ class OverviewViewController: UIViewController {
             videoTask.resume()
         }
     }
-
+    
+    func playVideo(id: String) {
+        var videoPlayerViewController: XCDYouTubeVideoPlayerViewController = XCDYouTubeVideoPlayerViewController(videoIdentifier: id)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "moviePlayerPlaybackDidFinish:", name: MPMoviePlayerPlaybackDidFinishNotification, object: videoPlayerViewController.moviePlayer)
+        self.presentMoviePlayerViewControllerAnimated(videoPlayerViewController)
+    }
+    
+    func moviePlayerPlaybackDidFinish(notification: NSNotification) {
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: MPMoviePlayerPlaybackDidFinishNotification, object: notification.object)
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
