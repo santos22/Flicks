@@ -101,13 +101,20 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
         }
         
         if let movieId = String(movie["vote_average"] as! NSNumber) as? String {
-            cell.overviewLabel.text = movieId
+            let average = Double(movieId)
+            let voteTruncated = Double(round(100*average!)/100)
+            cell.overviewLabel.text = String(voteTruncated)
         }
         
         if let posterPath = movie["id"] as? String {
             let imageUrl = NSURL(string: baseUrl + posterPath)
             cell.posterView.setImageWithURL(imageUrl!)
         }
+        
+        // cell animation
+        cell.alpha = 0
+        cell.selectionStyle = .None
+        UIView.animateWithDuration(1, animations: { cell.alpha = 1 })
         return cell
     }
     
@@ -141,17 +148,23 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "showOverviewSegue" {
             let cell = sender as! UITableViewCell
+            
+            let view = cell.contentView
+            view.layer.opacity = 0.1
+            UIView.animateWithDuration(1.4) {
+                view.layer.opacity = 1
+            }
             if let indexPath = tableView.indexPathForCell(cell) {
                 let nameController = segue.destinationViewController as! OverviewViewController
                 let movie = movies![indexPath.row] // unwraps
                 
-                let trailer = movie["id"] as! NSNumber
-                let releaseDate = movie["release_date"]
-                let dateFormatter = NSDateFormatter()
-                dateFormatter.dateFormat = "yyyy-MM-dd"
-                let orignalDate: NSDate = dateFormatter.dateFromString(releaseDate as! String!)!
-                dateFormatter.dateFormat = "MMMM dd, yyyy"
-                print(dateFormatter.stringFromDate(orignalDate))
+//                let trailer = movie["id"] as! NSNumber
+//                let releaseDate = movie["release_date"]
+//                let dateFormatter = NSDateFormatter()
+//                dateFormatter.dateFormat = "yyyy-MM-dd"
+//                let orignalDate: NSDate = dateFormatter.dateFromString(releaseDate as! String!)!
+//                dateFormatter.dateFormat = "MMMM dd, yyyy"
+//                print(dateFormatter.stringFromDate(orignalDate))
                 
                 let baseUrl = "http://image.tmdb.org/t/p/w500"
                 

@@ -70,7 +70,7 @@
             </objects>
             <point key="canvasLocation" x="254" y="416"/>
         </scene>
-        <!--Overview View Controller-->
+        <!--Overview-->
         <scene sceneID="OCn-Jx-4pH">
             <objects>
                 <viewController id="gFM-ll-rqD" customClass="OverviewViewController" customModule="MovieViewer" customModuleProvider="target" sceneMemberID="viewController">
@@ -101,7 +101,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" id="GSu-ER-R4v"/>
+                    <navigationItem key="navigationItem" title="Overview" id="GSu-ER-R4v"/>
                     <connections>
                         <outlet property="backdropImage" destination="MH7-cK-bY5" id="DLl-Y9-HI3"/>
                         <outlet property="movieOverview" destination="4Az-iL-aaP" id="7aL-Ty-hJg"/>
