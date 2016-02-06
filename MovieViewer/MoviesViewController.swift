@@ -24,8 +24,6 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setTitle()
-        
         // Initialize a UIRefreshControl
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: "refreshControlAction:", forControlEvents: UIControlEvents.ValueChanged)
@@ -34,10 +32,6 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
         tableView.delegate = self
         
         loadMovieData()
-    }
-    
-    func setTitle() {
-        self.title = "Flicks"
     }
     
     func loadMovieData() {
@@ -153,8 +147,6 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
                 
                 let trailer = movie["id"] as! NSNumber
                 let releaseDate = movie["release_date"]
-                print(releaseDate as! String)
-                
                 let dateFormatter = NSDateFormatter()
                 dateFormatter.dateFormat = "yyyy-MM-dd"
                 let orignalDate: NSDate = dateFormatter.dateFromString(releaseDate as! String!)!
