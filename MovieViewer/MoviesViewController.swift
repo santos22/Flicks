@@ -190,8 +190,7 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
                     let backdropUrl = NSURL(string: baseUrl + backdropPath)
                     nameController.backdrop = backdropUrl
                     
-                }
-                else {
+                } else {
                     // no poster image, so set to nil (no image)
                     nameController.backdrop = nil
                 }
