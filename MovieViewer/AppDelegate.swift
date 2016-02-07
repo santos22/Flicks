@@ -18,6 +18,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         window = UIWindow(frame: UIScreen.mainScreen().bounds)
         
+        // set navigation bar appearance and color
+        let mainNavigationBarAppearace = UINavigationBar.appearance()
+        mainNavigationBarAppearace.tintColor = UIColor.blackColor()
+        mainNavigationBarAppearace.barStyle = UIBarStyle.Black
+        mainNavigationBarAppearace.barTintColor = UIColor.blackColor()
+        mainNavigationBarAppearace.titleTextAttributes = [NSForegroundColorAttributeName:UIColor.whiteColor()]
+        
         // reference storyboard
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         

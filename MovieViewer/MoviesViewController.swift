@@ -25,16 +25,9 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let mainNavigationBarAppearace = UINavigationBar.appearance()
-        mainNavigationBarAppearace.tintColor = UIColor.blackColor()
-        mainNavigationBarAppearace.barStyle = UIBarStyle.Black
-        mainNavigationBarAppearace.barTintColor = UIColor.blackColor()
-        mainNavigationBarAppearace.titleTextAttributes = [NSForegroundColorAttributeName:UIColor.whiteColor()]
-        
         self.tableView.backgroundColor = UIColor(red: 0.30, green: 0.29, blue: 0.29, alpha: 1.0)
         self.tableView.separatorColor = UIColor.blackColor()
         
-        // Initialize a UIRefreshControl
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: "refreshControlAction:", forControlEvents: UIControlEvents.ValueChanged)
         tableView.insertSubview(refreshControl, atIndex: 0)
@@ -159,6 +152,16 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
         });
         task.resume()
     }
+    
+//    func getMovieReleaseDate() {
+//        let trailer = movie["id"] as! NSNumber
+//        let releaseDate = movie["release_date"]
+//        let dateFormatter = NSDateFormatter()
+//        dateFormatter.dateFormat = "yyyy-MM-dd"
+//        let orignalDate: NSDate = dateFormatter.dateFromString(releaseDate as! String!)!
+//        dateFormatter.dateFormat = "MMMM dd, yyyy"
+//        print(dateFormatter.stringFromDate(orignalDate))
+//    }
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -173,14 +176,6 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
             if let indexPath = tableView.indexPathForCell(cell) {
                 let nameController = segue.destinationViewController as! OverviewViewController
                 let movie = movies![indexPath.row] // unwraps
-                
-//                let trailer = movie["id"] as! NSNumber
-//                let releaseDate = movie["release_date"]
-//                let dateFormatter = NSDateFormatter()
-//                dateFormatter.dateFormat = "yyyy-MM-dd"
-//                let orignalDate: NSDate = dateFormatter.dateFromString(releaseDate as! String!)!
-//                dateFormatter.dateFormat = "MMMM dd, yyyy"
-//                print(dateFormatter.stringFromDate(orignalDate))
                 
                 let baseUrl = "http://image.tmdb.org/t/p/w500"
                 
