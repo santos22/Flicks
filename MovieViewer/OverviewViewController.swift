@@ -29,6 +29,12 @@ class OverviewViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let overviewNavigationBarAppearace = UINavigationBar.appearance()
+        overviewNavigationBarAppearace.tintColor = UIColor.blackColor()
+        overviewNavigationBarAppearace.barTintColor = UIColor.blackColor()
+        //navigationBarAppearace.barTintColor = UIColor(red: 0.30, green: 0.29, blue: 0.29, alpha: 1.0)
+        overviewNavigationBarAppearace.titleTextAttributes = [NSForegroundColorAttributeName:UIColor.whiteColor()]
+        
         if let overview = self.overview {
             movieOverview.text = overview
         }

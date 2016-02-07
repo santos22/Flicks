@@ -21,9 +21,18 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
     var printId: String?
     var endpoint: String!
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.tableView.backgroundColor = UIColor.lightGrayColor()
+        
+        let mainNavigationBarAppearace = UINavigationBar.appearance()
+        mainNavigationBarAppearace.tintColor = UIColor.blackColor()
+        mainNavigationBarAppearace.barStyle = UIBarStyle.Black
+        mainNavigationBarAppearace.barTintColor = UIColor.blackColor()
+        mainNavigationBarAppearace.titleTextAttributes = [NSForegroundColorAttributeName:UIColor.whiteColor()]
+        
+        self.tableView.backgroundColor = UIColor(red: 0.30, green: 0.29, blue: 0.29, alpha: 1.0)
+        self.tableView.separatorColor = UIColor.blackColor()
         
         // Initialize a UIRefreshControl
         let refreshControl = UIRefreshControl()
@@ -102,12 +111,14 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
         }
         
         if let title = movie["title"] as? String {
+            cell.titleLabel.textColor = UIColor(red: 0.85, green: 0.85, blue: 0.85, alpha: 1.0)
             cell.titleLabel.text = title
         }
         
         if let movieId = String(movie["vote_average"] as! NSNumber) as? String {
             let average = Double(movieId)
             let voteTruncated = Double(round(100*average!)/100)
+            cell.overviewLabel.textColor = UIColor(red: 0.85, green: 0.85, blue: 0.85, alpha: 1.0)
             cell.overviewLabel.text = String(voteTruncated)
         }
         
