@@ -100,12 +100,8 @@
                                 </state>
                                 <connections>
                                     <action selector="playMovieTrailer:" destination="gFM-ll-rqD" eventType="touchUpInside" id="3tc-Hj-Cfg"/>
+                                    <action selector="returnFullScreen:" destination="gFM-ll-rqD" eventType="editingDidEndOnExit" id="OXS-By-iQs"/>
                                 </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="zTX-PI-mIc">
-                                <rect key="frame" x="248" y="476" width="46" height="35"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>

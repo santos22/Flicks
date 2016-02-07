@@ -30,8 +30,8 @@ class OverviewViewController: UIViewController {
         super.viewDidLoad()
         
         let overviewNavigationBarAppearace = UINavigationBar.appearance()
-        overviewNavigationBarAppearace.tintColor = UIColor.whiteColor()
-        overviewNavigationBarAppearace.barTintColor = UIColor.whiteColor()
+        overviewNavigationBarAppearace.tintColor = UIColor.blackColor()
+        overviewNavigationBarAppearace.barTintColor = UIColor.blackColor()
         //navigationBarAppearace.barTintColor = UIColor(red: 0.30, green: 0.29, blue: 0.29, alpha: 1.0)
         overviewNavigationBarAppearace.titleTextAttributes = [NSForegroundColorAttributeName:UIColor.whiteColor()]
         
@@ -44,6 +44,8 @@ class OverviewViewController: UIViewController {
         }
     }
 
+    @IBAction func returnFullScreen(sender: AnyObject) {
+    }
     @IBAction func playMovieTrailer(sender: AnyObject) {
         if let trailerId = self.trailerId {
             let session = NSURLSession(

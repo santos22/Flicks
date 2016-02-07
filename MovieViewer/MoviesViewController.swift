@@ -25,6 +25,13 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // set navigation bar appearance and color
+        let mainNavigationBarAppearace = UINavigationBar.appearance()
+        mainNavigationBarAppearace.tintColor = UIColor.blackColor()
+        mainNavigationBarAppearace.barStyle = UIBarStyle.Black
+        mainNavigationBarAppearace.barTintColor = UIColor.blackColor()
+        mainNavigationBarAppearace.titleTextAttributes = [NSForegroundColorAttributeName:UIColor.whiteColor()]
+        
         self.tableView.backgroundColor = UIColor(red: 0.30, green: 0.29, blue: 0.29, alpha: 1.0)
         self.tableView.separatorColor = UIColor.blackColor()
         
@@ -112,7 +119,7 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
             let average = Double(movieId)
             let voteTruncated = Double(round(100*average!)/100)
             cell.overviewLabel.textColor = UIColor(red: 0.85, green: 0.85, blue: 0.85, alpha: 1.0)
-            cell.overviewLabel.text = String(voteTruncated)
+            cell.overviewLabel.text = String(voteTruncated) + " / 10"
         }
         
         if let posterPath = movie["id"] as? String {
