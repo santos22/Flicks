@@ -1,8 +1,8 @@
-# Project 1 - *Flicks*
+# Project 2 - *Flicks*
 
 **Flicks** is a movies app using the [The Movie Database API](http://docs.themoviedb.apiary.io/#).
 
-Time spent: **20<** hours spent in total
+Time spent: **30<** hours spent in total
 
 ## User Stories
 
@@ -18,31 +18,33 @@ The following **optional** features are implemented:
 - [ ] User sees an error message when there's a networking error.
 - [ ] Movies are displayed using a CollectionView instead of a TableView.
 - [ ] User can search for a movie.
-- [ ] All images fade in as they are loading.
+- [X] All images (table view items) fade in as they are loading.
 - [X] Customize the UI.
 
 The following **additional** features are implemented:
 
 - [X] Users can see the average score of each film.
-- [X] Users can find an overview of each film in the next page.
-- [ ] Users will be able to view the corresponding trailer for each film...
+- [X] Users can find an overview of each film on the next page.
+- [X] Users are able to view the corresponding trailer for each film in full screen.
 
 Please list two areas of the assignment you'd like to **discuss further with your peers** during the next class (examples include better ways to implement something, how to extend your app in certain ways, etc):
 
-1. Making more than one network request in an app...
-2. Viewing YouTube videos in-app
+1. Making more than one network request in an app.
+2. Viewing YouTube videos in-app.
 
 ## Video Walkthrough
 
 Here's a walkthrough of implemented user stories:
 
-<img src='http://i.imgur.com/LACuSPK.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<img src='http://i.imgur.com/wW6Gqzb.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
 ## Notes
 
 Describe any challenges encountered while building the app.
+- Unwrapping optionals and understanding the format of other network responses.
+- Customizing navigation bar.
 
 ## License
 
